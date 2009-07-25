@@ -15,6 +15,6 @@ You can of course choose your own adventure and customize how fabricate works. J
 
 == Checking for differences ==
 
-fabricate checks whether files are different by doing an md5 hash on their contents, using `md5_hasher()`. You can change this to use modification times like make by calling `setup(hasher=mtime_hasher)` in your build script.
+fabricate checks whether files are different by doing an MD5 hash on their contents, using `md5_hasher()`. You can change this to use modification times like make by calling `setup(hasher=mtime_hasher)` in your build script.
 
 You can also write your own hasher function, of course, though we've never had need to.
