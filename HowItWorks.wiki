@@ -1,4 +1,4 @@
-#summary How fabricate finds dependencies and checks for differences
+#summary How fabricate finds dependencies, and other musings
 
 == Finding dependencies automatically ==
 
@@ -12,6 +12,33 @@ It finds dependencies by one of two methods:
 fabricate automatically picks between these two methods. In the unusual case that neither method is supported by your system, fabricate will fall back to always running the command. (Contact us if you're having problems with your setup.)
 
 You can of course choose your own adventure and customize how fabricate works. Just subclass the `fabricate.Builder` class and override `runner()`. See the `GccBuilder` class for an example of using gcc to determine dependencies.
+
+== Storing the dependency list ==
+
+fabricate stores the list of inputs and outputs for each command line in a file called `.deps` (by default). If you're running Python 2.6 or you have [http://pypi.python.org/pypi/simplejson/ simplejson] installed, this will be a nice, human-readable JSON file. Otherwise fabricate will use pickle -- less readable, but just as good for building.
+
+Here's what the .deps file looks like for the build example on the project home page:
+
+{{{
+{
+    ".deps_version": 1, 
+    "gcc -c program.c": {
+        "C:\\work\\example\\program.c": "input-cf7173408d93621bfd3d7a455291e277", 
+        "C:\\work\\example\\program.o": "output-4a654dfd885a57f2dc7ccf657014167b", 
+        "C:\\work\\example\\util.h": "input-b411187d14ef4c2d7df045134a5d555d"
+    }, 
+    "gcc -c util.c": {
+        "C:\\work\\example\\util.c": "input-c5cbf91d7076fdcd2a85335ac075fe24", 
+        "C:\\work\\example\\util.h": "input-b411187d14ef4c2d7df045134a5d555d", 
+        "C:\\work\\example\\util.o": "output-44801837997d4d0e4588335fa01f6ce8"
+    }, 
+    "gcc -o program program.o util.o": {
+        "C:\\work\\example\\program.exe": "output-2da016e470175217d298d4645e8ce4ad", 
+        "C:\\work\\example\\program.o": "input-4a654dfd885a57f2dc7ccf657014167b", 
+        "C:\\work\\example\\util.o": "input-44801837997d4d0e4588335fa01f6ce8"
+    }
+}
+}}}
 
 == Checking for differences ==
 
