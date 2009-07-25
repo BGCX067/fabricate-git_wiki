@@ -1,6 +1,6 @@
-#summary How fabricate finds dependencies automatically
+#summary How fabricate works
 
-== How fabricate finds dependencies automatically ==
+== Finding dependencies automatically ==
 
 fabricate lets you simply type `run('mycommand')`, and it will run the command and figure and its dependencies (and outputs) automatically. Next time it'll only actually execute the command if those dependencies have changed (or the outputs have been modified or don't exist).
 
@@ -10,3 +10,11 @@ It finds dependencies by one of two methods:
   * *strace:* Some file systems don't update access times, and in that case fabricate uses the Linux `strace` command to log system calls to `open()` and determines what files were read and modified that way. This is the original method used by [http://www.eecs.berkeley.edu/~billm/memoize.html Bill McCloskey's memoize].
 
 fabricate automatically picks between these two methods. In the unusual case that neither method is supported by your system, fabricate will fall back to always running the command. (Contact us if you're having problems with your setup.)
+
+You can of course choose your own adventure and customize how fabricate works. Just subclass the `fabricate.Builder` class and override `runner()`. See the `GccBuilder` class for an example of using gcc to determine dependencies.
+
+== Checking for differences ==
+
+fabricate checks whether files are different by doing an md5 hash on their contents, using `md5_hasher()`. You can change this to use modification times like make by calling `setup(hasher=mtime_hasher)` in your build script.
+
+You can also write your own hasher function, of course, though we've never had need to.
