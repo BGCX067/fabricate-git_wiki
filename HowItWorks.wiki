@@ -15,7 +15,9 @@ You can of course choose your own adventure and customize how fabricate works. J
 
 == Storing the dependency list ==
 
-fabricate stores the list of inputs and outputs for each command line in a file called `.deps` (by default). If you're running Python 2.6 or you have [http://pypi.python.org/pypi/simplejson/ simplejson] installed, this will be a nice, human-readable JSON file. Otherwise fabricate will use pickle -- less readable, but just as good for building.
+fabricate stores the list of input and output files and their MD5 sums for each command in a file called `.deps` (by default).
+
+If you're running Python 2.6 or you have [http://pypi.python.org/pypi/simplejson/ simplejson] installed, this will be a nice, human-readable JSON file. Otherwise fabricate will use pickle -- less readable, but just as good for building.
 
 Here's what the .deps file looks like for the build example on the project home page:
 
