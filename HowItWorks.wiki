@@ -1,4 +1,4 @@
-#summary How fabricate works
+#summary How fabricate finds dependencies and checks for differences
 
 == Finding dependencies automatically ==
 
