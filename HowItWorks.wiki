@@ -2,7 +2,7 @@
 
 == Finding dependencies automatically ==
 
-fabricate lets you simply type `run('mycommand')`, and it will run the command and figure and its dependencies (and outputs) automatically. Next time it'll only actually execute the command if those dependencies have changed (or the outputs have been modified or don't exist).
+fabricate lets you simply type `run('mycommand')`, and it will run the command and figure out its dependencies (and outputs) automatically. Next time it'll only actually execute the command if those dependencies have changed (or the outputs have been modified or don't exist).
 
 It finds dependencies by one of two methods:
 
