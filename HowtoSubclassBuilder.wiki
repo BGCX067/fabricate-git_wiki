@@ -4,7 +4,9 @@
 
 If you'd like to find dependencies another way (not atimes or strace), or if you'd like to customise the Builder for some other reason, you can easily subclass `fabricate.Builder`.
 
-For example, one way to find dependencies using gcc's -M options (instead of atimes or strace) would be to subclass `Builder` as shown below. *Note: this is just an example of subclassing Builder, not our recommendation. In most cases you can use the default Builder just fine.*
+For example, one way to find dependencies using gcc's -M options (instead of atimes or strace) would be to subclass `Builder` as shown below. Simply implement `runner()` to do the work of running commands and finding dependencies and outputs.
+
+*Note: this is just an example of subclassing Builder, not our recommendation. In most cases you can use the default Builder just fine.*
 
 {{{
 from fabricate import *
