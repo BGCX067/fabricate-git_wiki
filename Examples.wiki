@@ -1,0 +1,24 @@
+#summary Examples of fabricate build scripts
+
+== Examples of fabricate build scripts ==
+
+Most of these examples assume you've got a main program with source in `program.c` and an associated `util.c`, both of which include `util.h`. The final output is a `program` executable (`program.exe` on Windows).
+
+=== Simplest way ===
+
+Here's the simplest, albeit least flexible, example of a build script for this program:
+
+{{{
+from fabricate import *
+run('gcc -c program.c')
+run('gcc -c util.c')
+run('gcc -o program program.o util.o')
+}}}
+
+=== Recommended way ===
+
+See the main example on the [http://code.google.com/p/fabricate/ project home page] for the "recommended" way to set up your fabricate build scripts. This way allows you to simply specify a list of sources, as in `sources = ['program', 'util']`. It also gives you an autoclean "target", which you execute via `build.py clean`.
+
+=== Different build and source directories ===
+
+...
