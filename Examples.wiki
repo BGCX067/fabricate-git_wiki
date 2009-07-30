@@ -6,7 +6,7 @@ Most of these examples assume you've got a main program with source in `program.
 
 === Simplest ===
 
-Here's the simplest, albeit least flexible, example of a build script for this program:
+Below is the simplest, albeit least flexible, example of a build script for this program. It's not recommended because it's hard to maintain as you add source files and other options.
 
 {{{
 from fabricate import *
@@ -17,7 +17,30 @@ run('gcc -o program program.o util.o')
 
 === Recommended ===
 
-See the main example on the [http://code.google.com/p/fabricate/ project home page] for the "recommended" way to set up your fabricate build scripts. This way allows you to simply specify a list of sources, as in `sources = ['program', 'util']`. It also gives you an autoclean "target", which you execute via `build.py clean`.
+This example (same as the one on the [http://code.google.com/p/fabricate/ project home page] is the "recommended" way to set up your fabricate build scripts. This way allows you to simply specify a list of sources, as in `sources = ['program', 'util']`. It also gives you an autoclean "target", which you execute via `build.py clean`.
+
+{{{
+from fabricate import *
+
+sources = ['program', 'util']
+
+def build():
+    compile()
+    link()
+
+def compile():
+    for source in sources:
+        run('gcc -c ' + source + '.c')
+
+def link():
+    objects = ' '.join(s + '.o' for s in sources)
+    run('gcc -o program ' + objects)
+
+def clean():
+    autoclean()
+
+main()
+}}}
 
 === Different build and source directories ===
 
