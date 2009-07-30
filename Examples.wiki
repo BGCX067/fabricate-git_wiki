@@ -4,7 +4,7 @@
 
 Most of these examples assume you've got a main program with source in `program.c` and an associated `util.c`, both of which include `util.h`. The final output is a `program` executable (`program.exe` on Windows).
 
-=== Simplest way ===
+=== Simplest ===
 
 Here's the simplest, albeit least flexible, example of a build script for this program:
 
@@ -15,10 +15,60 @@ run('gcc -c util.c')
 run('gcc -o program program.o util.o')
 }}}
 
-=== Recommended way ===
+=== Recommended ===
 
 See the main example on the [http://code.google.com/p/fabricate/ project home page] for the "recommended" way to set up your fabricate build scripts. This way allows you to simply specify a list of sources, as in `sources = ['program', 'util']`. It also gives you an autoclean "target", which you execute via `build.py clean`.
 
 === Different build and source directories ===
 
-...
+This one adds some features and gets a bit more complicated. It assumes `util.c` and `util.h` are in another directory, `../lib`, and it has two different build targets: `build` and `profile`, which build into the `build/` and `profile/` directories, respectively.
+
+The `version()` function uses fabricate's `shell()` function to find the SVN revision, and writes that to a file called `version.h`.
+
+{{{
+import os
+from fabricate import *
+
+setup(dirs=['.', '../lib'])
+
+target = 'program'
+sources = ['program', '../lib/util']
+cflags = '-Wall -O2'
+
+def build():
+    version()
+    compile()
+    link()
+
+def version():
+    revision = shell('svnversion').strip()
+    print >>file('version.h', 'w'), '#define REVISION "%s"' % revision
+    print 'svnversion:', revision
+
+def compile(build_dir='build', flags=''):
+    for source in sources:
+        run('gcc -c %s.c -o %s/%s.o %s %s' %
+            (source, build_dir, os.path.basename(source), cflags, flags))
+
+def link(build_dir='build', flags=''):
+    objects = ' '.join('%s/%s.o' %
+        (build_dir, os.path.basename(f)) for f in sources)
+    run('gcc %s -o %s/%s %s' % (objects, build_dir, target, flags))
+
+def profile():
+    version()
+    compile('profile', flags='-pg')
+    link('profile', flags='-pg')
+
+def check():
+    return int(outofdate(build))
+
+def clean():
+    autoclean()
+
+def rebuild():
+    clean()
+    build()
+
+main()
+}}}
