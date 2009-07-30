@@ -46,7 +46,7 @@ main()
 
 This one adds some features and gets a bit more complicated. It assumes `util.c` and `util.h` are in another directory, `../lib`, and it has two different build targets: `build` and `profile`, which build into the `build/` and `profile/` directories, respectively.
 
-The `version()` function uses fabricate's `shell()` function to find the SVN revision, and writes that to a file called `version.h`.
+The `version()` function uses fabricate's `shell()` function to find the SVN revision, and writes that to a file called `version.h`. It also shows how to use fabricate's `setup()` function.
 
 {{{
 import os
