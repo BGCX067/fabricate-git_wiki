@@ -1,4 +1,4 @@
-#summary A summary of some other build tools we've found
+#summary Some other build tools we've found
 
 == Other build tools ==
 
