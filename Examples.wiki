@@ -10,9 +10,9 @@ Below is the simplest, albeit least flexible, example of a build script for this
 
 {{{
 from fabricate import *
-run('gcc -c program.c')
-run('gcc -c util.c')
-run('gcc -o program program.o util.o')
+run('gcc', '-c', 'program.c')
+run('gcc', '-c', 'util.c')
+run('gcc', '-o', 'program', 'program.o', 'util.o')
 }}}
 
 === Recommended ===
@@ -30,11 +30,11 @@ def build():
 
 def compile():
     for source in sources:
-        run('gcc -c ' + source + '.c')
+        run('gcc', '-c', source+'.c')
 
 def link():
-    objects = ' '.join(s + '.o' for s in sources)
-    run('gcc -o program ' + objects)
+    objects = [s+'.o' for s in sources]
+    run('gcc', '-o', 'program', objects)
 
 def clean():
     autoclean()
@@ -56,7 +56,7 @@ setup(dirs=['.', '../lib'])
 
 target = 'program'
 sources = ['program', '../lib/util']
-cflags = '-Wall -O2'
+cflags = '-Wall -O2'.split()
 
 def build():
     version()
@@ -68,20 +68,22 @@ def version():
     print >>file('version.h', 'w'), '#define REVISION "%s"' % revision
     print 'svnversion:', revision
 
-def compile(build_dir='build', flags=''):
-    for source in sources:
-        run('gcc -c %s.c -o %s/%s.o %s %s' %
-            (source, build_dir, os.path.basename(source), cflags, flags))
+def oname(build_dir, filename):
+    return os.path.join(build_dir, os.path.basename(filename))
 
-def link(build_dir='build', flags=''):
-    objects = ' '.join('%s/%s.o' %
-        (build_dir, os.path.basename(f)) for f in sources)
-    run('gcc %s -o %s/%s %s' % (objects, build_dir, target, flags))
+def compile(build_dir='build', flags=None):
+    for source in sources:
+        allflags = cflags + (flags or [])
+        run('gcc', '-c', source+'.c', '-o', oname(build_dir, source+'.o'), allflags)
+
+def link(build_dir='build', flags=None):
+    objects = [oname(build_dir, s+'.o') for s in sources]
+    run('gcc', objects, '-o', oname(build_dir, target), flags or [])
 
 def profile():
     version()
-    compile('profile', flags='-pg')
-    link('profile', flags='-pg')
+    compile('profile', flags=['-pg'])
+    link('profile', flags=['-pg'])
 
 def check():
     return int(outofdate(build))
