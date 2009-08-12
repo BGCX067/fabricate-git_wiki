@@ -9,37 +9,39 @@ For example, one way to find dependencies using gcc's -M options (instead of str
 *Note: this is just an example of subclassing Builder, not our recommendation. In most cases you can use the default Builder just fine.*
 
 {{{
+import os
+import sys
 from fabricate import *
 
 class GccBuilder(Builder):
     """ Builder subclass example that uses gcc's -M dependency generation if it
         can, otherwise defaults to the default "smart" dependency runner. """
 
-    def is_gcc(self, command):
+    def is_gcc(self, args):
         """ Return True if command looks like a gcc command. """
-        return 'gcc ' in command or 'gcc.exe' in command
+        return args[0].endswith('gcc') or args[0].endswith('gcc.exe')
 
-    def runner(self, command):
+    def runner(self, *args):
         """ Run command using gcc dependency generation if it looks possible,
             otherwise use the default smart runner to find dependencies. """
-        if self.is_gcc(command):
-            return self.gcc_runner(command)
+        if self.is_gcc(args):
+            return self.gcc_runner(args)
         else:
-            return self.smart_runner(command)
+            return self.smart_runner(args)
 
-    def gcc_runner(self, command):
+    def gcc_runner(self, args):
         """ Run gcc command and return its dependencies and outputs. """
-        if ' -c' in command:
-            return self.gcc_compile_runner(command)
+        if '-c' in args:
+            return self.gcc_compile_runner(args)
         else:
-            return self.gcc_link_runner(command)
+            return self.gcc_link_runner(args)
 
-    def gcc_compile_runner(self, command):
+    def gcc_compile_runner(self, args):
         """ Run gcc compile command and return its list of dependencies and
             outputs, using gcc's -M options to determine dependencies. """
         deps_file = 'temp.d'
-        command += ' -MMD -MF %s' % deps_file
-        shell(command, silent=False)
+        args = list(args) + ['-MMD', '-MF', deps_file]
+        shell(args, silent=False)
         f = open(deps_file)
         try:
             target, deps_data = f.read().split(':', 1)
@@ -59,17 +61,14 @@ class GccBuilder(Builder):
         outputs = [os.path.abspath(target)]
         return deps, outputs
 
-    def gcc_link_runner(self, command):
+    def gcc_link_runner(self, args):
         """ Run gcc link command and return its list of dependencies and
             outputs, using given gcc command to determine dependencies. """
-        target = command.split('-o ')[1].split()[0]
+        target = args[list(args).index('-o') + 1]
         if sys.platform == 'win32' and not target.endswith('.exe'):
             target += '.exe'
-        deps = []
-        for word in command.split():
-            if word.endswith('.o'):
-                deps.append(os.path.abspath(word))
-        shell(command, silent=False)
+        deps = [os.path.abspath(a) for a in args if a.endswith('.o')]
+        shell(args, silent=False)
         outputs = [os.path.abspath(target)]
         return deps, outputs
 
