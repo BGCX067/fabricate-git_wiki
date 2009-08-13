@@ -66,19 +66,17 @@ def build():
 def version():
     revision = shell('svnversion').strip()
     print >>file('version.h', 'w'), '#define REVISION "%s"' % revision
-    print 'svnversion:', revision
 
 def oname(build_dir, filename):
     return os.path.join(build_dir, os.path.basename(filename))
 
 def compile(build_dir='build', flags=None):
     for source in sources:
-        allflags = cflags + (flags or [])
-        run('gcc', '-c', source+'.c', '-o', oname(build_dir, source+'.o'), allflags)
+        run('gcc', '-c', source+'.c', '-o', oname(build_dir, source+'.o'), cflags, flags)
 
 def link(build_dir='build', flags=None):
     objects = [oname(build_dir, s+'.o') for s in sources]
-    run('gcc', objects, '-o', oname(build_dir, target), flags or [])
+    run('gcc', objects, '-o', oname(build_dir, target), flags)
 
 def profile():
     version()
