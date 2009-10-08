@@ -11,7 +11,7 @@ It finds dependencies by one of two methods:
 
 fabricate automatically picks between these two methods. In the unusual case that neither method is supported by your system, fabricate will fall back to always running the command. (Contact us if you're having problems with your setup.)
 
-You can of course choose your own adventure and customize how fabricate works. Just subclass the `fabricate.Runner` class and pass it in the `setup()` function. See the [HowtoMakeYourOwnRunner `GccRunner` class] for an example of using gcc to determine dependencies.
+You can of course choose your own adventure and customize how fabricate works. Just subclass the `fabricate.Runner` class and pass it in the `setup()` function. See the [HowtoMakeYourOwnRunner GccRunner class] for an example of using gcc to determine dependencies.
 
 == Storing the dependency list ==
 
