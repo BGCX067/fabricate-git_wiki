@@ -1,33 +1,36 @@
-#summary How to subclass Builder to find dependencies some other way
+#summary How to create your own `runner` to find dependencies some other way
 
-== How to subclass Builder ==
+== How to create your own `runner` class ==
 
-If you'd like to find dependencies another way (not strace or atimes), or if you'd like to customise the Builder for some other reason, you can easily subclass `fabricate.Builder`.
+If you'd like to find dependencies another way (not strace or atimes), or if you'd like to customise the Builder for some other reason, you can easily subclass `fabricate.Runner`.
 
-For example, one way to find dependencies using gcc's -M options (instead of strace or atimes) would be to subclass `Builder` as shown below. Simply implement `runner()` to do the work of running commands and finding dependencies and outputs.
+For example, one way to find dependencies using gcc's -M options (instead of strace or atimes) would be to subclass `Runner` as shown below. Simply implement a `__call__()` function to do the work of running commands and finding dependencies and outputs.
 
-*Note: this is just an example of subclassing Builder, not our recommendation. In most cases you can use the default Builder just fine.*
+*Note: this is just an example of creating your own `runner`, not our recommendation. In most cases you can use the default Runner just fine.*
 
 {{{
 import os
 import sys
 from fabricate import *
 
-class GccBuilder(Builder):
-    """ Builder subclass example that uses gcc's -M dependency generation if it
+class GccRunner(Runner):
+    """ Runner subclass example that uses gcc's -M dependency generation if it
         can, otherwise defaults to the default "smart" dependency runner. """
 
-    def is_gcc(self, args):
-        """ Return True if command looks like a gcc command. """
-        return args[0].endswith('gcc') or args[0].endswith('gcc.exe')
+    def __init__(self, builder):
+        self.smart_runner = SmartRunner(builder)    # get runner instance
 
-    def runner(self, *args):
+    def __call__(self, *args):
         """ Run command using gcc dependency generation if it looks possible,
             otherwise use the default smart runner to find dependencies. """
         if self.is_gcc(args):
             return self.gcc_runner(args)
         else:
             return self.smart_runner(args)
+
+    def is_gcc(self, args):
+        """ Return True if command looks like a gcc command. """
+        return args[0].endswith('gcc') or args[0].endswith('gcc.exe')
 
     def gcc_runner(self, args):
         """ Run gcc command and return its dependencies and outputs. """
@@ -72,8 +75,8 @@ class GccBuilder(Builder):
         outputs = [os.path.abspath(target)]
         return deps, outputs
 
-# set up fabricate to use GccBuilder
-setup(builder=GccBuilder)
+# set up fabricate to use GccRunner
+setup(runner=GccRunner)
 
 # ... rest of your build script here, as normal ...
 }}}
