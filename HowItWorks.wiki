@@ -9,7 +9,7 @@ It finds dependencies by one of two methods:
   * *strace:* fabricate first tries to use the Linux `strace` command to log system calls to `open()` and determines what files were read and modified that way. This is the original method used by [http://www.eecs.berkeley.edu/~billm/memoize.html Bill McCloskey's memoize].
   * *File access times (atimes):* Some systems (Windows) don't have `strace`, and in that case fabricate looks at the atimes of files before and after the command was run, and from those can figure out which files each command accesses. It also uses file modification times (mtimes) to determine the command's output files. It's fast and simple, and it works on NTFS, FAT32 (thanks to some tricks), as well as Linux file systems that have atimes enabled.
 
-*WARNING:* Fabricate's use in windows has gotchas until somebody implements something better than the atimes dependency calculator.  The gotchas and an strace-like solution are discussed [http://code.google.com/p/fabricate/issues/detail?id=14 in this forum thread].
+*WARNING:* Fabricate's use in windows has gotchas until somebody implements something better than the atimes dependency calculator.  The gotchas and an strace-like solution are discussed [http://code.google.com/p/fabricate/issues/detail?id=14 in this forum thread].  If you are running *Windows Vista or higher*, you will probably need to issue the command "fsutil behavior set disablelastaccess 0" before fabricate and atimes will work.
 
 fabricate automatically picks between these two methods. In the unusual case that neither method is supported by your system, fabricate will fall back to always running the command. (Contact us if you're having problems with your setup.)
 
