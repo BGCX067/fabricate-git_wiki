@@ -1,5 +1,7 @@
 #summary How fabricate finds dependencies, and other musings
 
+If you're looking for detailed [Help usage help], look on that link.
+
 == Finding dependencies automatically ==
 
 fabricate lets you simply type `run('command', 'arg1', 'arg2')`, and it will run the command and figure out its dependencies (and outputs) automatically. Next time it'll only actually execute the command if those dependencies have changed (or the outputs have been modified or don't exist).
