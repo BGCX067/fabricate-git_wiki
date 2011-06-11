@@ -17,6 +17,15 @@ Tested using fabricate v1.16 (r109) on a Windows XP 32-bit system, compiles done
 
 == Linux ==
 
+Tested using fabricate v1.16 (r109) on a Linux system (Huck), compiles done with gcc. Times below are normalized so !AlwaysRunner is 1.0:
+
+|| *Runner* || *Time (normalized)* ||
+|| !AlwaysRunner || ||
+|| !AtimesRunner first build || ||
+|| !AtimesRunner subsequent builds || ||
+|| make first build || ||
+|| make subsequent builds || ||
+
 == Linux with parallel jobs ==
 
 COMING SOON
