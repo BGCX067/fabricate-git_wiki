@@ -8,7 +8,7 @@ There's also a comparison against `make` for each platform.
 
 Tested using fabricate v1.16 (r109) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Times below are normalized so AlwaysRunner is 1.0:
 
-|| Runner || time (normalized) ||
+|| *Runner* || *Time (normalized)* ||
 || !AlwaysRunner || 1.0 ||
 || !AtimesRunner first build || 1.1 ||
 || !AtimesRunner subsequent builds || 0.043 ||
