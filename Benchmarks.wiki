@@ -1,13 +1,15 @@
 #summary Benchmarks of how fast fabricate is
 
+These benchmarks were run using the benchmark.py script in the source tree. This script creates a bunch of C source and header files, and then when you tell it to build, it creates a fabricate build.py script which it runs using the given runner.
+
 == Windows ==
 
-Tested on a Windows XP 32-bit system, normalized so AlwaysRunner is 1.0:
+Tested on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Times below are normalized so AlwaysRunner is 1.0:
 
 || Runner || time (normalized) ||
-|| AlwaysRunner || 1.0 ||
-|| AtimesRunner first build || 1.1 ||
-|| AtimesRunner subsequent builds || 0.043 ||
+|| !AlwaysRunner || 1.0 ||
+|| !AtimesRunner first build || 1.1 ||
+|| !AtimesRunner subsequent builds || 0.043 ||
 
 == Linux ==
 
