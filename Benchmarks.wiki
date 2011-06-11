@@ -6,7 +6,7 @@ There's also a comparison against `make` for each platform.
 
 == Windows ==
 
-Tested using fabricate v1.16 (r109) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Times below are normalized so AlwaysRunner is 1.0:
+Tested using fabricate v1.16 (r109) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Times below are normalized so !AlwaysRunner is 1.0:
 
 || *Runner* || *Time (normalized)* ||
 || !AlwaysRunner || 1.0 ||
