@@ -6,12 +6,12 @@ There's also a comparison against `make` for each platform.
 
 == Windows ==
 
-Tested using fabricate v1.17 (r118) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Number of sources/lines/headers/lines 100/1000/10/10000. Times below are normalized so !AlwaysRunner is 1.0:
+Tested using fabricate v1.20 (r123) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Number of sources/lines/headers/lines 100/1000/10/10000. Times below are normalized so !AlwaysRunner is 1.0:
 
 || *Runner* || *Time (normalized)* ||
 || !AlwaysRunner || 1.00 ||
-|| !AtimesRunner first build || 1.05 ||
-|| !AtimesRunner subsequent builds || 0.043 ||
+|| !AtimesRunner first build || 1.02 ||
+|| !AtimesRunner subsequent builds || 0.0072 ||
 || make first build || 1.01 ||
 || make subsequent builds || 0.011 ||
 
