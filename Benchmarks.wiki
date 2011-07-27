@@ -17,14 +17,14 @@ Tested using fabricate v1.20 (r127) on a Windows XP 32-bit system, compiles done
 
 == Linux ==
 
-Tested using fabricate v1.20 (r123) on a Linux system (Huck), compiles done with gcc. Number of sources/lines/headers/lines 50/500/5/1000 (because gcc is so much slower than tcc!). Times below are normalized so !AlwaysRunner is 1.0:
+Tested using fabricate v1.20 (r127) on a Linux system (Huck), compiles done with gcc. Number of sources/lines/headers/lines 25/250/5/500 (because gcc is so much slower than tcc!). Times below are normalized so !AlwaysRunner is 1.0:
 
 || *Runner* || *Time (normalized)* ||
-|| !AlwaysRunner || 1.00 || 148.475
-|| !StraceRunner first build || 1.03 || 511.724
-|| !StraceRunner subsequent builds || 0.0026 || 20.54
-|| make first build || 0.96 || ... 
-|| make subsequent builds || 0.00013 || ...
+|| !AlwaysRunner || 1.00 ||
+|| !StraceRunner first build || 1.19 ||
+|| !StraceRunner subsequent builds || 0.011 ||
+|| make first build || 0.99 ||
+|| make subsequent builds || 0.00049 ||
 
 == Linux with parallel jobs ==
 
