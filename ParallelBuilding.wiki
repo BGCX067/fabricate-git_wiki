@@ -32,7 +32,7 @@ number of parallel jobs to run.  This can be overridden by the -j command
 line option.  The resultant value must be greater than one to run commands in 
 parallel.
 
-Parallel operation is only possible with StraceRunner.
+Parallel operation is only possible with !StraceRunner.
 
 If these three conditions are true then fabricate will run commands in 
 parallel, this will be known as 'parallel mode'.
