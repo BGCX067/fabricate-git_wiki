@@ -26,7 +26,7 @@ Tested using fabricate v1.20 (r127) on a Linux system (Huck), compiles done with
 || make first build || 0.99 ||
 || make subsequent builds || 0.00049 ||
 
-== Linux with parallel jobs ==
+== TODO: Linux with parallel jobs ==
 
 Same as above, but with parallel_ok=True and jobs=2:
 
