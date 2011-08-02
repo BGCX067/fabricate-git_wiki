@@ -16,6 +16,8 @@ There are two parts to telling fabricate to run commands in parallel,
   # Telling it that it is safe to build in parallel
   # Telling it which commands to run in parallel
 
+Skip [http://code.google.com/p/fabricate/wiki/ParallelBuilding#Examples straight to examples].
+
 = Parallel Usage =
 
 The user script must use fabricate slightly differently for parallel operation as follows:
