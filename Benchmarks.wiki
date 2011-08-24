@@ -26,13 +26,42 @@ Tested using fabricate v1.20 (r127) on a Linux system (Huck), compiles done with
 || make first build || 0.99 ||
 || make subsequent builds || 0.00049 ||
 
-== TODO: Linux with parallel jobs ==
+== Linux with parallel jobs ==
 
-Same as above, but with parallel_ok=True and jobs=2:
+Tested using fabricate v1.20 (r137) on a quad-core Linux system. As above, but with parallel_ok=True and different numbers of jobs:
+
+With `--jobs=1`:
 
 || *Runner* || *Time (normalized)* ||
-|| !AlwaysRunner || ||
-|| !StraceRunner first build || ||
-|| !StraceRunner subsequent builds || ||
-|| make first build || ||
-|| make subsequent builds || ||
+|| !AlwaysRunner || 1.00 ||
+|| !StraceRunner first build || 1.00 ||
+|| !StraceRunner subsequent builds || 0.0013 ||
+|| make first build || 0.97 ||
+|| make subsequent builds || 0.000054 ||
+
+With `--jobs=2`:
+
+|| *Runner* || *Time (normalized)* ||
+|| !AlwaysRunner || 1.00 ||
+|| !StraceRunner first build || 0.54 ||
+|| !StraceRunner subsequent builds || 0.0015 ||
+|| make first build || 0.56 ||
+|| make subsequent builds || 0.000054 ||
+
+With `--jobs=3`:
+
+|| *Runner* || *Time (normalized)* ||
+|| !AlwaysRunner || 1.00 ||
+|| !StraceRunner first build || 0.40 ||
+|| !StraceRunner subsequent builds || 0.0016 ||
+|| make first build || 0.41 ||
+|| make subsequent builds || 0.000043 ||
+
+With `--jobs=4`:
+
+|| *Runner* || *Time (normalized)* ||
+|| !AlwaysRunner || 1.00 ||
+|| !StraceRunner first build || 0.41 ||
+|| !StraceRunner subsequent builds || 0.0016 ||
+|| make first build || 0.39 ||
+|| make subsequent builds || 0.000043 ||
