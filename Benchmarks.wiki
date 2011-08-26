@@ -28,7 +28,7 @@ Tested using fabricate v1.20 (r127) on a Linux system (Huck), compiles done with
 
 == Linux with parallel jobs ==
 
-Tested using fabricate v1.20 (r137) on a quad-core Linux system. As above, but with parallel_ok=True and different numbers of jobs:
+Tested using fabricate v1.20 (r137) on a quad-core Linux system. Number of sources/lines/headers/lines 100/1000/10/10000, and with parallel_ok=True and different numbers of jobs (results accurate to +/- 2%):
 
 With `--jobs=1`:
 
