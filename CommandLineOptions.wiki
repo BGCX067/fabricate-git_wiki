@@ -7,7 +7,7 @@ fabricate is intended to be used in a build script, for example, `build.py`. But
 With either method, you can use certain command line options to override the default setup, or the `setup()` given in your build script. These are `-t`, `-d`, `-c` and `-q`, as follows:
 
 <code language='xml'>
-Usage: fabricate.py [options] command line to run
+Usage: fabricate.py [[options]] command line to run
 
  Options:
   --version             show program's version number and exit
