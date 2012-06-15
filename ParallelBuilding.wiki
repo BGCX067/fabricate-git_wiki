@@ -159,7 +159,7 @@ def link():
     objects = [s+'.o' for s in main_sources]
     after(); run('gcc', '-o', 'program', objects, 'lib/library.a')
 
-main(parallel=True, jobs=3)
+main(parallel_ok=True, jobs=3)
 }}}
 
 The next script makes the links depend only on the specific compiles that 
@@ -189,5 +189,5 @@ def link():
     objects = [s+'.o' for s in main_sources]
     run('gcc', '-o', 'program', objects, 'lib/library.a', after=('main', 'arch'))
 
-main(parallel=True, jobs=3)
+main(parallel_ok=True, jobs=3)
 }}}
