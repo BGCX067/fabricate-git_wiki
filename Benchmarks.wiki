@@ -6,7 +6,7 @@ There's also a comparison against `make` for each platform.
 
 == Windows ==
 
-Tested using fabricate v1.20 (r127) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Number of sources/lines/headers/lines 100/1000/10/10000. Times below are normalized so !AlwaysRunner is 1.0:
+Tested using fabricate v1.20 ([https://code.google.com/p/fabricate/source/browse/?r=76e490eccaaf9ef848187dce7f23725290f74655 76e490eccaaf]) on a Windows XP 32-bit system, compiles done with tcc (Tiny C Compiler). Number of sources/lines/headers/lines 100/1000/10/10000. Times below are normalized so !AlwaysRunner is 1.0:
 
 || *Runner* || *Time (normalized)* ||
 || !AlwaysRunner || 1.00 ||
@@ -17,7 +17,7 @@ Tested using fabricate v1.20 (r127) on a Windows XP 32-bit system, compiles done
 
 == Linux ==
 
-Tested using fabricate v1.20 (r127) on a Linux system (Huck), compiles done with gcc. Number of sources/lines/headers/lines 25/250/5/500 (because gcc is so much slower than tcc!). Times below are normalized so !AlwaysRunner is 1.0:
+Tested using fabricate v1.20 ([https://code.google.com/p/fabricate/source/browse/?r=76e490eccaaf9ef848187dce7f23725290f74655 76e490eccaaf]) on a Linux system (Huck), compiles done with gcc. Number of sources/lines/headers/lines 25/250/5/500 (because gcc is so much slower than tcc!). Times below are normalized so !AlwaysRunner is 1.0:
 
 || *Runner* || *Time (normalized)* ||
 || !AlwaysRunner || 1.00 ||
@@ -28,7 +28,7 @@ Tested using fabricate v1.20 (r127) on a Linux system (Huck), compiles done with
 
 == Linux with parallel jobs ==
 
-Tested using fabricate v1.20 (r137) on a quad-core Linux system. Number of sources/lines/headers/lines 100/1000/10/10000, and with parallel_ok=True and different numbers of jobs (results accurate to +/- 2%):
+Tested using fabricate v1.20 ([https://code.google.com/p/fabricate/source/browse/?r=6754093560ae88438b2aaf5d5fedc248e756cf2f 6754093560ae]) on a quad-core Linux system. Number of sources/lines/headers/lines 100/1000/10/10000, and with parallel_ok=True and different numbers of jobs (results accurate to +/- 2%):
 
 With `--jobs=1`:
 
